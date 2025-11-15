@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+build/
+dist/
+*.egg-info/
+
+# Flask
+instance/
+.webassets-cache
+
+# Environment
+.env
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Data
+static/uploads/*
+!static/uploads/.gitkeep
+data/embeddings/*.bin
+data/embeddings/*.pkl
+data/product_images/*
+!data/product_images/.gitkeep
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Models
+*.pth
+*.pt
