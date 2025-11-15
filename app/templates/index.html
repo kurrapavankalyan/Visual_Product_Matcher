@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Find Similar Products by Image</h1>
+        <p>Upload an image or provide a URL to discover visually similar products</p>
+    </section>
+
+    <!-- Upload Section -->
+    <section class="upload-section">
+        <div class="upload-box">
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="file">
+                    <i class="fas fa-upload"></i> Upload File
+                </button>
+                <button class="tab-btn" data-tab="url">
+                    <i class="fas fa-link"></i> Image URL
+                </button>
+            </div>
+
+            <!-- File Upload Tab -->
+            <div class="tab-content active" id="file-tab">
+                <form id="upload-form" enctype="multipart/form-data">
+                    <div class="file-input-wrapper">
+                        <input type="file" id="file-input" name="file" accept="image/*" required>
+                        <label for="file-input" class="file-label">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span>Click to upload or drag and drop</span>
+                            <small>Supports: JPG, PNG, GIF, WEBP (Max 16MB)</small>
+                        </label>
+                    </div>
+                    
+                    <!-- Preview -->
+                    <div id="preview-container" class="preview-container" style="display: none;">
+                        <img id="preview-image" src="" alt="Preview">
+                        <button type="button" class="remove-btn" onclick="removeImage()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Similarity Threshold -->
+                    <div class="filter-section">
+                        <label for="similarity-slider">
+                            Similarity Threshold: <span id="similarity-value">0.7</span>
+                        </label>
+                        <input type="range" id="similarity-slider" name="min_similarity" 
+                               min="0.5" max="1.0" step="0.05" value="0.7">
+                    </div>
+                    
+                    <button type="submit" class="btn-primary" id="search-btn">
+                        <i class="fas fa-search"></i> Find Similar Products
+                    </button>
+                </form>
+            </div>
+
+            <!-- URL Input Tab -->
+            <div class="tab-content" id="url-tab">
+                <form id="url-form">
+                    <input type="url" id="url-input" name="image_url" 
+                           placeholder="https://example.com/image.jpg" required>
+                    
+                    <!-- Similarity Threshold -->
+                    <div class="filter-section">
+                        <label for="similarity-slider-url">
+                            Similarity Threshold: <span id="similarity-value-url">0.7</span>
+                        </label>
+                        <input type="range" id="similarity-slider-url" name="min_similarity" 
+                               min="0.5" max="1.0" step="0.05" value="0.7">
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-search"></i> Find Similar Products
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Loading Spinner -->
+    <div id="loading" class="loading" style="display: none;">
+        <div class="spinner"></div>
+        <p>Searching for similar products...</p>
+    </div>
+
+    <!-- Results Section -->
+    <section id="results-section" class="results-section" style="display: none;">
+        <h2>Search Results <span id="results-count"></span></h2>
+        
+        <!-- Uploaded Image -->
+        <div class="uploaded-image-section">
+            <h3>Your Image</h3>
+            <img id="uploaded-image" src="" alt="Uploaded image">
+        </div>
+        
+        <!-- Similar Products Grid -->
+        <div id="results-grid" class="results-grid"></div>
+    </section>
+</div>
+
+<script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+<script src="{{ url_for('static', filename='js/results.js') }}"></script>
+{% endblock %}
